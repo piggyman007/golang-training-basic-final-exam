@@ -8,8 +8,8 @@ import (
 	db "github.com/piggyman007/golang-training-basic-final-exam/database"
 )
 
-// GetByID - get customer by ID
-func GetByID(c *gin.Context) {
+// DeleteByID - delete customer by ID
+func DeleteByID(c *gin.Context) {
 	idParam := c.Param("id")
 	id, err := strconv.Atoi(idParam)
 	if err != nil {
@@ -17,17 +17,10 @@ func GetByID(c *gin.Context) {
 		return
 	}
 
-	row, err := db.GetCustomerByID(id)
+	err = db.DeleteCustomerByID(id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": http.StatusText(http.StatusInternalServerError)})
 		return
 	}
-
-	customer := new(Customer)
-	if err = row.Scan(&customer.ID, &customer.Name, &customer.Email, &customer.Status); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": http.StatusText(http.StatusInternalServerError)})
-		return
-	}
-
-	c.JSON(http.StatusOK, customer)
+	c.JSON(http.StatusOK, gin.H{"message": "customer deleted"})
 }

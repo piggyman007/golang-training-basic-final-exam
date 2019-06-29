@@ -4,8 +4,8 @@ import (
 	"database/sql"
 )
 
-// GetByID - get customer by ID
-func GetByID(id int) (*sql.Row, error) {
+// GetCustomerByID - get customer by ID
+func GetCustomerByID(id int) (*sql.Row, error) {
 	stmt, err := db.Prepare(`
 		SELECT id, name, email, status 
 		FROM customers

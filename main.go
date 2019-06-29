@@ -34,6 +34,8 @@ func setupRouter() *gin.Engine {
 	r.POST("/customers", customer.Create)
 	r.GET("/customers", customer.List)
 	r.GET("/customers/:id", customer.GetByID)
+	r.PUT("/customers/:id", customer.UpdateByID)
+	r.DELETE("/customers/:id", customer.DeleteByID)
 
 	return r
 }
