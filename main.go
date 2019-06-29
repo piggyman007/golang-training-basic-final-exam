@@ -10,7 +10,8 @@ import (
 )
 
 func main() {
-	db.InitTable()
+	db.New()
+	defer db.Close()
 	r := setupRouter()
 	r.Run(":2019")
 }
