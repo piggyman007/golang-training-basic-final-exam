@@ -32,6 +32,7 @@ func setupRouter() *gin.Engine {
 
 	r.Use(authMiddleware)
 	r.POST("/customers", customer.Create)
+	r.GET("/customers", customer.List)
 
 	return r
 }

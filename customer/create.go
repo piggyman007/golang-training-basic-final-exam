@@ -12,19 +12,19 @@ func Create(c *gin.Context) {
 	customer := new(Customer)
 
 	if err := c.ShouldBindJSON(customer); err != nil {
-		handleError(c, err, http.StatusBadRequest)
+		c.JSON(http.StatusBadRequest, gin.H{"error": http.StatusText(http.StatusBadRequest)})
 		return
 	}
 
 	row, err := db.CreateCustomer(customer.Name, customer.Email, customer.Status)
 
 	if err != nil {
-		handleError(c, err, http.StatusInternalServerError)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": http.StatusText(http.StatusInternalServerError)})
 		return
 	}
 
 	if err = row.Scan(&customer.ID); err != nil {
-		handleError(c, err, http.StatusInternalServerError)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": http.StatusText(http.StatusInternalServerError)})
 		return
 	}
 
